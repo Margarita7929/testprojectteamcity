@@ -1,0 +1,78 @@
+###
+### Constants
+@host = 192.168.1.116
+
+### 1. Create project
+# @no-cookie-jar
+POST http://{{host}}:8111/app/rest/projects
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic admin-margo admin
+
+{
+  "parentProject": {
+    "locator": "_Root"
+  },
+  "name": "margo-teamcity",
+  "id": "DJJR48495JJFJE",
+  "copyAllAssociatedSettings": true
+}
+
+### 2. Create build configuration
+# @no-cookie-jar
+POST http://{{host}}:8111/app/rest/buildTypes
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic admin-margo admin
+
+{
+  "id": "id",
+  "name": "Print hello world",
+  "project": {
+    "id": "DJJR48495JJFJE"
+  },
+  "steps": {
+    "step": [
+      {
+        "name": "Print hello world",
+        "type": "simpleRunner",
+        "properties": {
+          "property": [
+            {
+              "name": "script.content",
+              "value": "echo 'Hello World!'"
+            },
+            {
+              "name": "teamcity.step.mode",
+              "value": "default"
+            },
+            {
+              "name": "use.custom.script",
+              "value": "true"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+
+### 3. Run build
+# @no-cookie-jar
+POST http://{{host}}:8111/app/rest/buildQueue
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic admin-margo admin
+
+{
+  "buildType": {
+    "id": "id"
+  }
+}
+
+### 4. Check build status
+# @no-cookie-jar
+GET http://{{host}}:8111/app/rest/builds/id:202
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic admin-margo admin
