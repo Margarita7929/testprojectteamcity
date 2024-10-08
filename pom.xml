@@ -17,6 +17,10 @@
         <allure.version>2.27.0</allure.version>
         <rest-assured.version>5.1.1</rest-assured.version>
         <projectlombok.version>1.18.34</projectlombok.version>
+        <jackson-core.version>2.17.2</jackson-core.version>
+        <jackson-databind.version>2.17.2</jackson-databind.version>
+        <jackson-annotations.version>2.17.2</jackson-annotations.version>
+
     </properties>
 
     <dependencies>
@@ -59,6 +63,21 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${projectlombok.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson-annotations.version}</version>
         </dependency>
     </dependencies>
     <build>

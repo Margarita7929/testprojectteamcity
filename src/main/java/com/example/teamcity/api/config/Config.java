@@ -16,22 +16,24 @@ public class Config {
 
     private static Config getConfig() {
         if (config == null) {
-        config = new Config();
-        } return config;
+            config = new Config();
+        }
+        return config;
     }
 
     public void loadProperties(String fileName) {
-        try(InputStream stream = Config.class.getClassLoader().getResourceAsStream(fileName)) {
+        try (InputStream stream = Config.class.getClassLoader().getResourceAsStream(fileName)) {
             if (stream == null) {
                 System.err.println("File" + fileName + "not found");
             }
             properties.load(stream);
-    } catch (IOException e) {
+        } catch (IOException e) {
             System.err.println("Error during reading file" + fileName);
             throw new RuntimeException(e);
         }
     }
-public static String getProperty(String key) {
+
+    public static String getProperty(String key) {
         return getConfig().properties.getProperty(key);
-}
+    }
 }
