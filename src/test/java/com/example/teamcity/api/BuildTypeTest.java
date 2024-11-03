@@ -11,9 +11,7 @@ import com.example.teamcity.api.spec.Specifications;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
-
 import java.util.Arrays;
-
 import static com.example.teamcity.api.enums.Endpoint.*;
 import static com.example.teamcity.api.generator.TestDataGenerator.generate;
 
@@ -31,7 +29,6 @@ public class BuildTypeTest extends BaseApiTest {
 
         userCheckRequest.getRequest(BUILD_TYPES).create(testData.getBuildType());
 
-        var createdBuildType = userCheckRequest.<BuildType>getRequest(BUILD_TYPES).read("id:" + testData.getBuildType().getId());
 
         softy.assertEquals(testData.getBuildType().getName(), createdBuildType.getName(), "Build type name is not correct");
     }
