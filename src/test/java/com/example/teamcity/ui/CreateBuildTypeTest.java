@@ -12,13 +12,9 @@ import com.example.teamcity.ui.pages.admin.CreateBuildTypePage;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 
 import static com.example.teamcity.api.enums.Endpoint.PROJECT;
 import static com.example.teamcity.ui.pages.BasePage.BASE_WAITING;
-import static org.testng.Assert.assertEquals;
 
 
 @Slf4j
