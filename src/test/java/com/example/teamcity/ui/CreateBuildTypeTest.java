@@ -34,7 +34,7 @@ public class CreateBuildTypeTest extends BaseUiTest {
                 .createForm(GIT_URL)
                 .createBuildConfiguration(testData.getBuildType().getName());
 
-        var createdBuildType = superUserCheckedRequests.<BuildType>getRequest(Endpoint.BUILD_TYPES).read("name:" + testData.getBuildType().getName()).getCount();
+        var createdBuildType = superUserCheckedRequests.<BuildType>getRequest(Endpoint.BUILD_TYPES).read("name:" + testData.getBuildType().getName());
         softy.assertNotNull(createdBuildType);
 
         BuildTypePage.title.shouldHave(Condition.exactText(testData.getBuildType().getName()), BASE_WAITING);
@@ -49,7 +49,7 @@ public class CreateBuildTypeTest extends BaseUiTest {
         userCheckRequest.<Project>getRequest(PROJECT).create(testData.getProject());
 
 
-        var responseFirst = superUserCheckedRequests.<BuildType>getRequest(Endpoint.BUILD_TYPES).read("?locator" + "=project:id:" + testData.getProject().getId());
+        var responseFirst = superUserCheckedRequests.<BuildType>getRequest(Endpoint.BUILD_TYPES).read("?locator" + "=project:id:" + testData.getProject().getId()).getCount();
 
 
         CreateBuildTypePage.open(testData.getProject().getId())
