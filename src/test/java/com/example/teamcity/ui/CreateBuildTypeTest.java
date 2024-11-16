@@ -11,6 +11,7 @@ import com.example.teamcity.ui.pages.BuildTypePage;
 import com.example.teamcity.ui.pages.admin.CreateBuildTypePage;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,7 +38,7 @@ public class CreateBuildTypeTest extends BaseUiTest {
                 .createForm(GIT_URL)
                 .createBuildConfiguration(testData.getBuildType().getName());
 
-        var createdBuildType = superUserCheckedRequests.<BuildType>getRequest(Endpoint.BUILD_TYPES).read("name:" + testData.getBuildType().getName());
+        var createdBuildType = superUserCheckedRequests.<BuildType>getRequest(Endpoint.BUILD_TYPES).read("name:" + testData.getBuildType().getName()).getCount();
         softy.assertNotNull(createdBuildType);
 
         BuildTypePage.title.shouldHave(Condition.exactText(testData.getBuildType().getName()), BASE_WAITING);
@@ -54,16 +55,6 @@ public class CreateBuildTypeTest extends BaseUiTest {
 
         var responseFirst = superUserCheckedRequests.<BuildType>getRequest(Endpoint.BUILD_TYPES).read("?locator" + "=project:id:" + testData.getProject().getId());
 
-        String jsonResponseFirst = responseFirst.toString();
-        Pattern patternOne = Pattern.compile("\"count\"\\s*:\\s*(\\d+)");
-        Matcher matcherOne = patternOne.matcher(jsonResponseFirst);
-        int buildTypesCountFirstCheck;
-        if (matcherOne.find()) {
-            buildTypesCountFirstCheck = Integer.parseInt(matcherOne.group(1));
-        } else {
-            throw new IllegalStateException("Поле 'count' не найдено в первом ответе.");
-        }
-
 
         CreateBuildTypePage.open(testData.getProject().getId())
                 .createForm(GIT_URL)
@@ -71,21 +62,11 @@ public class CreateBuildTypeTest extends BaseUiTest {
         CreateBuildTypePage.checkErrorBuildTypeName();
 
 
-        var responseSecond = superUserCheckedRequests.<BuildType>getRequest(Endpoint.BUILD_TYPES).read("?locator" + "=project:id:" + testData.getProject().getId());
+        var responseSecond = superUserCheckedRequests.<BuildType>getRequest(Endpoint.BUILD_TYPES).read("?locator" + "=project:id:" + testData.getProject().getId()).getCount();
 
-        String jsonResponseSecond = responseSecond.toString();
-        Pattern patternTwo = Pattern.compile("\"count\"\\s*:\\s*(\\d+)");
-        Matcher matcherTwo = patternTwo.matcher(jsonResponseSecond);
-        int buildTypesCountSecondCheck;
-        if (matcherTwo.find()) {
-            buildTypesCountSecondCheck = Integer.parseInt(matcherTwo.group(1));
-        } else {
-            throw new IllegalStateException("Поле 'count' не найдено во втором ответе.");
-        }
-
-          assertEquals(buildTypesCountFirstCheck, buildTypesCountSecondCheck, "Build types counts do not match");
-  System.out.println(buildTypesCountFirstCheck);
-  System.out.println(buildTypesCountSecondCheck);
+        softy.assertEquals(responseFirst, responseSecond, "Build types counts do not match");
+        System.out.println(responseFirst);
+        System.out.println(responseSecond);
 
 
     }
