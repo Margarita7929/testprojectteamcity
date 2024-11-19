@@ -21,5 +21,6 @@ public class BuildType extends BaseModel {
     private String name;
     private Project project;
     private Steps steps;
+    private String count;
 
 }

@@ -20,6 +20,7 @@
         <jackson-core.version>2.17.2</jackson-core.version>
         <jackson-databind.version>2.17.2</jackson-databind.version>
         <jackson-annotations.version>2.17.2</jackson-annotations.version>
+        <selenide.version>7.5.1</selenide.version>
 
     </properties>
 
@@ -29,6 +30,11 @@
             <artifactId>allure-testng</artifactId>
             <version>${allure.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>${selenide.version}</version>
         </dependency>
         <dependency>
             <groupId>com.codeborne</groupId>
